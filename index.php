@@ -107,7 +107,7 @@ mysql_close();
 function listLocations()
 {
 	// Query the database
-	$query = mysql_query("SELECT * FROM locations ORDER BY loc_rating, loc_id DESC LIMIT 25");
+	$query = mysql_query("SELECT * FROM locations ORDER BY loc_rating DESC LIMIT 25");
 
 	// Show each of the results
 	while($location = mysql_fetch_array($query))
@@ -118,23 +118,26 @@ function listLocations()
 function listLocation($location)
 {
 	$loc_name = $location['loc_name'];
+	$loc_rating = $location['loc_rating'];
+	$loc_id = $location['loc_id'];
 
 	?>
 
-	<div class="napLoc" style="clear: left; font-size: 150%; margin-bottom: 50px;">
-			<div class="napLocContainer" style="float:left;">
+	<div class="loc" style="clear: left; margin-bottom: 50px;">
+		<div class="locContainer" style="float:left;">
 
-				<span style="border-right: 1px solid gray; padding-right: 10px; display: inline;">
-					<img src="img/upvote.png">
-					<img src="img/downvote.png">
-				</span>
+			<span style="display: inline;">
+				<img src="img/upvote.png">
+				<img src="img/downvote.png">
+				( <?php echo $loc_rating ?> )
+			</span>
 
-				<span style="display: inline; margin-left: 10px">
-					<?php echo $loc_name ?>
-				</span>
+			<span class = "locTitle" style="border-left: 2px solid gray; padding-left: 10px; display: inline; font-size: 150%; margin-left: 10px">
+				<?php echo $loc_name ?>
+			</span>
 				
-			</div>
 		</div>
+	</div>
 
 	<?php
 }
