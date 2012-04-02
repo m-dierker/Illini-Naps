@@ -1,5 +1,19 @@
 
 <!DOCTYPE html>
+
+
+<?php
+
+// Require the config file, cause we need that and stuff
+require_once('config.php');
+
+// Establish a MySQL Connection
+mysql_connect(MYSQL_HOSTNAME, MYSQL_USERNAME, MYSQL_PASSWORD) or die('Cannot connnect to database!');
+mysql_select_db(MYSQL_DB_NAME) or die('Unable to select the database');
+
+
+?>
+
 <html lang="en">
   <head>
 	<meta charset="utf-8">
@@ -61,35 +75,7 @@
 	  		<h2>Top Sleep Spots</h2>
 	  	</div>
 
-		<div class="napLoc" style="clear: left; font-size: 150%; margin-bottom: 50px;">
-			<div class="napLocContainer" style="float:left;">
-
-				<span style="border-right: 1px solid gray; padding-right: 10px; display: inline;">
-					<img src="img/upvote.png">
-					<img src="img/downvote.png">
-				</span>
-
-				<span style="display: inline; margin-left: 10px">
-					Location 1
-				</span>
-				
-			</div>
-		</div>
-
-		<div class="napLoc" style="clear: left; font-size: 150%; margin-bottom: 50px;">
-			<div class="napLocContainer" style="float:left;">
-
-				<span style="border-right: 1px solid gray; padding-right: 10px; display: inline;">
-					<img src="img/upvote.png">
-					<img src="img/downvote.png">
-				</span>
-
-				<span style="display: inline; margin-left: 10px">
-					This is a longer Location 2
-				</span>
-				
-			</div>
-		</div>
+	  	<?php listLocations(); ?>
 
 	</div> <!-- /container -->
 
@@ -112,3 +98,45 @@
 
   </body>
 </html>
+
+<?php
+
+// Close the MySQL Connection
+mysql_close();
+
+function listLocations()
+{
+	// Query the database
+	$query = mysql_query("SELECT * FROM locations ORDER BY loc_rating, loc_id DESC LIMIT 25");
+
+	// Show each of the results
+	while($location = mysql_fetch_array($query))
+		listLocation($location);
+}
+
+
+function listLocation($location)
+{
+	$loc_name = $location['loc_name'];
+
+	?>
+
+	<div class="napLoc" style="clear: left; font-size: 150%; margin-bottom: 50px;">
+			<div class="napLocContainer" style="float:left;">
+
+				<span style="border-right: 1px solid gray; padding-right: 10px; display: inline;">
+					<img src="img/upvote.png">
+					<img src="img/downvote.png">
+				</span>
+
+				<span style="display: inline; margin-left: 10px">
+					<?php echo $loc_name ?>
+				</span>
+				
+			</div>
+		</div>
+
+	<?php
+}
+
+?>
