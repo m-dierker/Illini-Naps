@@ -6,10 +6,9 @@
 
 // Require the config file, cause we need that and stuff
 require_once('config.php');
+require_once('functions.php');
 
-// Establish a MySQL Connection
-mysql_connect(MYSQL_HOSTNAME, MYSQL_USERNAME, MYSQL_PASSWORD) or die('Cannot connnect to database!');
-mysql_select_db(MYSQL_DB_NAME) or die('Unable to select the database');
+establishMySQLConnection();
 
 
 ?>
@@ -57,8 +56,8 @@ mysql_select_db(MYSQL_DB_NAME) or die('Unable to select the database');
 		  <div class="nav-collapse">
 			<ul class="nav">
 			  <li class="active"><a href="#">Home</a></li>
-			  <li><a href="#about">About</a></li>
-			  <li><a href="#contact">Contact</a></li>
+			  <!-- <li><a href="#about">About</a></li> -->
+			  <!-- <li><a href="#contact">Contact</a></li> -->
 			</ul>
 		  </div><!--/.nav-collapse -->
 		</div>
@@ -72,10 +71,15 @@ mysql_select_db(MYSQL_DB_NAME) or die('Unable to select the database');
 	  <p></p>
 
 	  	<div id="topLabel" style="margin-bottom: 15px">
-	  		<h2>Top Sleep Spots</h2>
+	  		<h2>Nap Locations</h2>
 	  	</div>
 
 	  	<?php listLocations(); ?>
+
+	  	<div id="footer" style="clear: left; margin-top: 200px">
+	  		<h3>Thought of, founded, created, and programmed by <a href="http://dierkers.com">Matthew Dierker</a></h3> (and maybe a little credit to Tory and Michaela. Maybe.)
+	  		<h4>A Big Dipper Production</h4>
+	  	</div>
 
 	</div> <!-- /container -->
 
@@ -123,13 +127,17 @@ function listLocation($location)
 
 	?>
 
-	<div class="loc" style="clear: left; margin-bottom: 50px;">
-		<div class="locContainer" style="float:left;">
+	<div class="loc" style=" ">
+		<div class="locContainer" style="float:left; clear: left; margin-bottom: 15px;">
 
 			<span style="display: inline;">
-				<img src="img/upvote.png">
-				<img src="img/downvote.png">
-				( <?php echo $loc_rating ?> )
+				<a style="text-decoration: none" href="vote.php?vote=1&loc_id=<?php echo $loc_id ?>">
+					<img src="img/upvote.png">
+				</a>
+				<a style="text-decoration: none" href="vote.php?vote=-1&loc_id=<?php echo $loc_id ?>">
+					<img src="img/downvote.png">
+				</a>
+				(Rating: <?php echo $loc_rating ?>)
 			</span>
 
 			<span class = "locTitle" style="border-left: 2px solid gray; padding-left: 10px; display: inline; font-size: 150%; margin-left: 10px">
