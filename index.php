@@ -4,8 +4,7 @@
 
 <?php
 
-// Require the config file, cause we need that and stuff
-require_once('config.php');
+// Require functions.php, which establishes a connection to the database and imports config and such
 require_once('functions.php');
 
 establishMySQLConnection();
@@ -19,7 +18,7 @@ establishMySQLConnection();
 	<title>IlliniNaps: The best places to sleep at UIUC!</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="IlliniNaps">
-	<meta name="author" content="Mattehew Dierker">
+	<meta name="author" content="Matthew Dierker">
 
 	<!-- Le styles -->
 	<link href="css/bootstrap.css" rel="stylesheet">
@@ -77,8 +76,15 @@ establishMySQLConnection();
 	  	<?php listLocations(); ?>
 
 	  	<div id="footer" style="clear: left; margin-top: 200px">
-	  		<h3>Thought of, founded, created, and programmed by <a href="http://dierkers.com">Matthew Dierker</a></h3> (and maybe a little credit to Tory and Michaela. Maybe.)
-	  		<h4>A Big Dipper Production</h4>
+	  		<h3>
+	  			Thought of, founded, created, and programmed by <a href="http://dierkers.com">Matthew Dierker</a>
+	  		</h3>
+	  		
+	  		(and maybe a little credit to Tory and Michaela. Maybe.)
+
+	  		<h4>
+	  			A Big Dipper Production
+	  		</h4>
 	  	</div>
 
 	</div> <!-- /container -->
@@ -86,27 +92,15 @@ establishMySQLConnection();
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="../assets/js/jquery.js"></script>
-	<script src="../assets/js/bootstrap-transition.js"></script>
-	<script src="../assets/js/bootstrap-alert.js"></script>
-	<script src="../assets/js/bootstrap-modal.js"></script>
-	<script src="../assets/js/bootstrap-dropdown.js"></script>
-	<script src="../assets/js/bootstrap-scrollspy.js"></script>
-	<script src="../assets/js/bootstrap-tab.js"></script>
-	<script src="../assets/js/bootstrap-tooltip.js"></script>
-	<script src="../assets/js/bootstrap-popover.js"></script>
-	<script src="../assets/js/bootstrap-button.js"></script>
-	<script src="../assets/js/bootstrap-collapse.js"></script>
-	<script src="../assets/js/bootstrap-carousel.js"></script>
-	<script src="../assets/js/bootstrap-typeahead.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 
   </body>
 </html>
 
 <?php
 
-// Close the MySQL Connection
-mysql_close();
+closeMySQLConnection();
 
 function listLocations()
 {
